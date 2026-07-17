@@ -13,36 +13,36 @@
 
 ---
 
-## Phase 1: Setup (项目初始化)
+## Phase 1: Setup (项目初始化) ✅ 已完成
 
-**Goal**: 初始化 Rust 项目结构，配置依赖，确保 `cargo build` 通过
+**Goal**: 初始化 Rust 项目结构,配置依赖,确保 `cargo build` 通过
 
-- [ ] T001 使用 `cargo init --name rustsniffer` 初始化项目，创建 `src/main.rs` 和 `Cargo.toml`
-- [ ] T002 在 `Cargo.toml` 中添加核心依赖：`pcap`, `etherparse`, `tokio` (full), `rusqlite` (bundled), `clap` (derive), `serde` (derive), `serde_json`, `toml`, `thiserror`, `anyhow`, `tracing`, `tracing-subscriber`, `tracing-appender`, `chrono`, `dirs`
-- [ ] T003 创建项目目录结构：`src/capture/`, `src/protocol/`, `src/dpi/`, `src/storage/`, `src/config/`, `src/logging/`, `src/cli/`, `src/common/`
-- [ ] T004 创建测试目录结构：`tests/unit/`, `tests/integration/`, `tests/fixtures/`
-- [ ] T005 [P] 创建所有模块的 `mod.rs` 入口文件，在 `src/lib.rs` 中声明各顶层模块
-- [ ] T006 验证 `cargo build` 和 `cargo clippy` 通过无错误
+- [x] T001 使用 `cargo init --name rustsniffer` 初始化项目,创建 `src/main.rs` 和 `Cargo.toml`
+- [x] T002 在 `Cargo.toml` 中添加核心依赖:`pcap`, `etherparse`, `tokio` (full), `rusqlite` (bundled), `clap` (derive), `serde` (derive), `serde_json`, `toml`, `thiserror`, `anyhow`, `tracing`, `tracing-subscriber`, `tracing-appender`, `chrono`, `dirs`
+- [x] T003 创建项目目录结构:`src/capture/`, `src/protocol/`, `src/dpi/`, `src/storage/`, `src/config/`, `src/logging/`, `src/cli/`, `src/common/`
+- [x] T004 创建测试目录结构:`tests/unit/`, `tests/integration/`, `tests/fixtures/`
+- [x] T005 [P] 创建所有模块的 `mod.rs` 入口文件,在 `src/lib.rs` 中声明各顶层模块
+- [x] T006 验证 `cargo build` 和 `cargo clippy` 通过无错误
 
 ---
 
-## Phase 2: Foundational (基础模块)
+## Phase 2: Foundational (基础模块) ✅ 已完成
 
 **Goal**: 实现公共类型、错误处理、配置加载、日志系统——所有 User Story 的前置依赖
 
-- [ ] T007 在 `src/common/types.rs` 中定义 `FiveTuple` 结构体（src_ip, dst_ip, src_port, dst_port, protocol）及 `Protocol` 枚举（TCP/UDP/ICMP）
-- [ ] T008 [P] 在 `src/common/types.rs` 中定义 `Direction` 枚举（Inbound/Outbound）和 `PacketInfo` 结构体（timestamp, raw_bytes, interface_id）
-- [ ] T009 在 `src/common/error.rs` 中使用 `thiserror` 定义 `SnifferError` 枚举，包含 CaptureError、ProtocolError、DpiError、StorageError、ConfigError 变体
-- [ ] T010 [P] 在 `src/common/utils.rs` 中实现工具函数：获取数据目录路径 `~/.rustsniffer/`、确保目录存在
-- [ ] T011 在 `src/config/settings.rs` 中定义 `Settings`、`CaptureConfig`、`StorageConfig`、`LoggingConfig` 结构体，使用 `serde` derive
-- [ ] T012 在 `src/config/loader.rs` 中实现分层配置加载：默认值 → 配置文件 `~/.rustsniffer/config.toml` → 环境变量（前缀 `RUSTSNIFFER_`，如 `RUSTSNIFFER_LOG_LEVEL=debug`）→ 命令行参数（最高优先级）
-- [ ] T013 在 `src/logging/setup.rs` 中实现日志初始化：使用 `tracing-subscriber` + `tracing-appender`，JSON 格式输出到 `~/.rustsniffer/logs/`，100MB 轮转，保留 5 个文件
-- [ ] T014 在 `src/common/mod.rs` 中导出所有公共类型，确保 `src/lib.rs` 正确导出 `common` 模块
-- [ ] T015 验证 `cargo test` 通过，基础模块可编译
+- [x] T007 在 `src/common/types.rs` 中定义 `FiveTuple` 结构体（src_ip, dst_ip, src_port, dst_port, protocol）及 `Protocol` 枚举（TCP/UDP/ICMP）
+- [x] T008 [P] 在 `src/common/types.rs` 中定义 `Direction` 枚举（Inbound/Outbound）和 `PacketInfo` 结构体（timestamp, raw_bytes, interface_id）
+- [x] T009 在 `src/common/error.rs` 中使用 `thiserror` 定义 `SnifferError` 枚举，包含 CaptureError、ProtocolError、DpiError、StorageError、ConfigError 变体
+- [x] T010 [P] 在 `src/common/utils.rs` 中实现工具函数：获取数据目录路径 `~/.rustsniffer/`、确保目录存在
+- [x] T011 在 `src/config/settings.rs` 中定义 `Settings`、`CaptureConfig`、`StorageConfig`、`LoggingConfig` 结构体，使用 `serde` derive
+- [x] T012 在 `src/config/loader.rs` 中实现分层配置加载：默认值 → 配置文件 `~/.rustsniffer/config.toml` → 环境变量（前缀 `RUSTSNIFFER_`，如 `RUSTSNIFFER_LOG_LEVEL=debug`）→ 命令行参数（最高优先级）
+- [x] T013 在 `src/logging/setup.rs` 中实现日志初始化：使用 `tracing-subscriber` + `tracing-appender`，JSON 格式输出到 `~/.rustsniffer/logs/`，100MB 轮转，保留 5 个文件
+- [x] T014 在 `src/common/mod.rs` 中导出所有公共类型，确保 `src/lib.rs` 正确导出 `common` 模块
+- [x] T015 验证 `cargo test` 通过，基础模块可编译
 
 ---
 
-## Phase 3: User Story 1 - 基础网络抓包与实时查看 (P1)
+## Phase 3: User Story 1 - 基础网络抓包与实时查看 (P1) ✅ 已完成
 
 **Story Goal**: 用户启动工具后选择网卡，系统开始抓包并在终端实时显示数据包五元组信息
 
@@ -52,40 +52,40 @@
 
 ### CLI 参数定义
 
-- [ ] T016 [US1] 在 `src/cli/args.rs` 中使用 `clap` derive 定义 CLI 参数结构：`Cli` 主结构含 `interface`/`filter`/`promiscuous`/`count`/`duration` 参数，`list_interfaces` 子命令
-- [ ] T017 [P] [US1] 在 `src/cli/commands.rs` 中实现 `list_interfaces` 命令处理：调用 `pcap::Device::list()` 枚举网卡并格式化输出
+- [x] T016 [US1] 在 `src/cli/args.rs` 中使用 `clap` derive 定义 CLI 参数结构：`Cli` 主结构含 `interface`/`filter`/`promiscuous`/`count`/`duration` 参数，`list_interfaces` 子命令
+- [x] T017 [P] [US1] 在 `src/cli/commands.rs` 中实现 `list_interfaces` 命令处理：调用 `pcap::Device::list()` 枚举网卡并格式化输出
 
 ### 网卡枚举与选择
 
-- [ ] T018 [US1] 在 `src/capture/interface.rs` 中实现 `list_interfaces()` 函数：返回可用网卡列表（名称、描述、地址）
-- [ ] T019 [P] [US1] 在 `src/capture/interface.rs` 中实现 `select_interface(name: Option<&str>)` 函数：自动选择第一个或按名称匹配
+- [x] T018 [US1] 在 `src/capture/interface.rs` 中实现 `list_interfaces()` 函数：返回可用网卡列表（名称、描述、地址）
+- [x] T019 [P] [US1] 在 `src/capture/interface.rs` 中实现 `select_interface(name: Option<&str>)` 函数：自动选择第一个或按名称匹配
 
 ### BPF 过滤器
 
-- [ ] T020 [US1] 在 `src/capture/bpf.rs` 中实现 `validate_bpf(expression: &str) -> Result<()>` 函数：验证 BPF 语法正确性
-- [ ] T021 [P] [US1] 在 `src/capture/bpf.rs` 中实现 `apply_bpf(capture: &mut pcap::Capture, expression: &str) -> Result<()>` 函数
+- [x] T020 [US1] 在 `src/capture/bpf.rs` 中实现 `validate_bpf(expression: &str) -> Result<()>` 函数：验证 BPF 语法正确性
+- [x] T021 [P] [US1] 在 `src/capture/bpf.rs` 中实现 `apply_bpf(capture: &mut pcap::Capture, expression: &str) -> Result<()>` 函数
 
 ### 抓包引擎
 
-- [ ] T022 [US1] 在 `src/capture/sniffer.rs` 中定义 `Sniffer` 结构体，包含 `start(interface, bpf_filter, promiscuous) -> Result<CaptureStream>` 方法
-- [ ] T023 [US1] 在 `src/capture/sniffer.rs` 中实现 `CaptureStream`：封装 `pcap::Capture`，使用 `tokio::task::spawn_blocking()` 异步捕获数据包
-- [ ] T024 [US1] 在 `src/capture/sniffer.rs` 中实现 `CaptureStats` 统计结构：total_packets, dropped_packets, duration, packets_per_second
-- [ ] T025 [P] [US1] 在 `src/capture/sniffer.rs` 中实现信号处理：捕获 SIGINT/SIGTERM，优雅停止并输出统计摘要
-- [ ] T025a [US1] 在 `src/capture/sniffer.rs` 中实现 SIGHUP 信号处理：捕获 SIGHUP 后调用 `config::reload()` 重新加载配置，应用新配置到正在运行的抓包会话（如日志级别、BPF 过滤器）
-- [ ] T025b [US1] 在 `src/config/loader.rs` 中实现 `reload() -> Result<Settings>` 函数：重新读取配置文件并合并环境变量，返回新的 Settings
-- [ ] T025c [US1] 在 `src/capture/sniffer.rs` 中实现流量采样：当 packets_per_second > 100,000 时，启用采样模式（每 N 个包保留 1 个），在终端输出提示 "已启用采样，实际流量为显示值的 N 倍"
-- [ ] T025d [US1] 在 `src/capture/sniffer.rs` 中实现采样率动态调整：根据实时流量自动调整采样间隔，确保显示延迟 < 200ms
+- [x] T022 [US1] 在 `src/capture/sniffer.rs` 中定义 `Sniffer` 结构体，包含 `start(interface, bpf_filter, promiscuous) -> Result<CaptureStream>` 方法
+- [x] T023 [US1] 在 `src/capture/sniffer.rs` 中实现 `CaptureStream`：封装 `pcap::Capture`，使用 `tokio::task::spawn_blocking()` 异步捕获数据包
+- [x] T024 [US1] 在 `src/capture/sniffer.rs` 中实现 `CaptureStats` 统计结构：total_packets, dropped_packets, duration, packets_per_second
+- [x] T025 [P] [US1] 在 `src/capture/sniffer.rs` 中实现信号处理：捕获 SIGINT/SIGTERM，优雅停止并输出统计摘要
+- [x] T025a [US1] 在 `src/capture/sniffer.rs` 中实现 SIGHUP 信号处理：捕获 SIGHUP 后调用 `config::reload()` 重新加载配置，应用新配置到正在运行的抓包会话（如日志级别、BPF 过滤器）
+- [x] T025b [US1] 在 `src/config/loader.rs` 中实现 `reload() -> Result<Settings>` 函数：重新读取配置文件并合并环境变量，返回新的 Settings
+- [x] T025c [US1] 在 `src/capture/sniffer.rs` 中实现流量采样：当 packets_per_second > 100,000 时，启用采样模式（每 N 个包保留 1 个），在终端输出提示 "已启用采样，实际流量为显示值的 N 倍"
+- [x] T025d [US1] 在 `src/capture/sniffer.rs` 中实现采样率动态调整：根据实时流量自动调整采样间隔，确保显示延迟 < 200ms
 
 ### 实时输出
 
-- [ ] T026 [US1] 在 `src/cli/commands.rs` 中实现 `run_capture()` 函数：整合 Sniffer + 终端输出，按 tcpdump 格式打印五元组（时间戳、源IP:端口 → 目的IP:端口、协议、包长）
-- [ ] T027 [P] [US1] 在 `src/capture/mod.rs` 中导出所有公共 API
+- [x] T026 [US1] 在 `src/cli/commands.rs` 中实现 `run_capture()` 函数：整合 Sniffer + 终端输出，按 tcpdump 格式打印五元组（时间戳、源IP:端口 → 目的IP:端口、协议、包长）
+- [x] T027 [P] [US1] 在 `src/capture/mod.rs` 中导出所有公共 API
 
 ### 集成验证
 
-- [ ] T028 [US1] 在 `src/main.rs` 中整合 CLI 解析 + capture 命令，确保 `rustsniffer capture` 可运行
-- [ ] T029 [US1] 在 `src/main.rs` 中整合 `list-interfaces` 子命令
-- [ ] T030 [US1] 验证端到端流程：`cargo run -- capture` 能实时输出数据包信息，Ctrl+C 优雅退出
+- [x] T028 [US1] 在 `src/main.rs` 中整合 CLI 解析 + capture 命令，确保 `rustsniffer capture` 可运行
+- [x] T029 [US1] 在 `src/main.rs` 中整合 `list-interfaces` 子命令
+- [x] T030 [US1] 验证端到端流程：`cargo run -- capture` 能实时输出数据包信息，Ctrl+C 优雅退出
 
 ---
 
