@@ -35,6 +35,9 @@ src/dpi/ndpi_sys.rs
 # Third-party SDKs
 npcap-sdk/
 
+# Debug session files
+debug-*.md
+
 # Added by cargo
 
 /target

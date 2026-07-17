@@ -11,8 +11,50 @@ use rustsniffer::cli::commands::{cmd_capture, cmd_list_interfaces};
 use rustsniffer::config::loader;
 use rustsniffer::logging::setup::init_logging;
 
+/// 初始化 Npcap DLL 路径（Windows 专用）
+///
+/// 在 Windows 系统上，Npcap 的 DLL 文件（wpcap.dll、Packet.dll）通常安装在
+/// C:\Windows\System32\Npcap 目录下，但该目录可能不在系统 PATH 中。
+/// 此函数检测并添加 Npcap 路径到 PATH 环境变量，确保程序能够找到所需的 DLL。
+#[cfg(target_os = "windows")]
+fn init_npcap_path() {
+    use std::env;
+    use std::path::Path;
+
+    // Npcap 常见安装路径
+    let npcak_paths = [
+        r"C:\Windows\System32\Npcap",
+        r"C:\Windows\SysWOW64\Npcap",
+    ];
+
+    // 检查是否已存在 wpcap.dll
+    for npcak_path in &npcak_paths {
+        let wpcap_dll = Path::new(npcak_path).join("wpcap.dll");
+        if wpcap_dll.exists() {
+            // 检查 PATH 中是否已包含此路径
+            if let Ok(current_path) = env::var("PATH") {
+                if !current_path.to_lowercase().contains(&npcak_path.to_lowercase()) {
+                    // 添加到 PATH 开头
+                    let new_path = format!("{};{}", npcak_path, current_path);
+                    env::set_var("PATH", &new_path);
+                    info!("已自动添加 Npcap 路径到 PATH: {}", npcak_path);
+                }
+            }
+            break;
+        }
+    }
+}
+
+#[cfg(not(target_os = "windows"))]
+fn init_npcap_path() {
+    // 非 Windows 系统无需处理
+}
+
 #[tokio::main]
 async fn main() -> Result<()> {
+    // 初始化 Npcap 路径（Windows 专用）
+    init_npcap_path();
+
     // 加载配置
     let config = loader::load()?;
 
