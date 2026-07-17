@@ -1,0 +1,61 @@
+[package]
+name = "rustsniffer"
+version = "0.1.0"
+edition = "2021"
+description = "Rust 智能抓包与流量分析工具"
+license = "MIT"
+authors = ["RustSniffer Team"]
+
+[dependencies]
+# 网络抓包
+pcap = "2.0"
+
+# 协议解析
+etherparse = "0.14"
+
+# 异步运行时
+tokio = { version = "1.35", features = ["full"] }
+
+# 数据库
+rusqlite = { version = "0.30", features = ["bundled"] }
+
+# CLI 参数解析
+clap = { version = "4.4", features = ["derive"] }
+
+# 序列化
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+
+# 错误处理
+thiserror = "1.0"
+anyhow = "1.0"
+
+# 日志
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+tracing-appender = "0.2"
+
+# 时间处理
+chrono = { version = "0.4", features = ["serde"] }
+
+# 目录路径
+dirs = "5.0"
+
+# MD5 哈希（用于 JA3 指纹）
+md-5 = "0.10"
+
+# 正则表达式（用于数据脱敏）
+regex = "1.10"
+
+[build-dependencies]
+# FFI 绑定生成（nDPI）
+bindgen = "0.69"
+
+[dev-dependencies]
+# 测试工具
+tempfile = "3.9"
+
+[[bin]]
+name = "rustsniffer"
+path = "src/main.rs"
